@@ -10,4 +10,4 @@ COPY --from=build /usr/src/demo-client/target/demo-client-0.0.1-SNAPSHOT.jar /us
 
 expose 8088
 
-ENTRYPOINT ["java","-jar","/usr/demo-client/demo-client-0.0.1-SNAPSHOT.jar"]
+CMD ["java","-jar","/usr/demo-client/demo-client-0.0.1-SNAPSHOT.jar"]
