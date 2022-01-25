@@ -20,7 +20,7 @@ public class DemoClientController {
 	@GetMapping("/users")
 	public Iterable<DemoDbUser> getAllusers() {
 
-		String baseUrl = "/demodb/users";
+		String baseUrl = "http://10.100.8.119:9000/demodb/users";
 
 		RestTemplate restTemplate = new RestTemplate();
 		Iterable<DemoDbUser> response = null;
