@@ -12,4 +12,4 @@ WORKDIR /usr/demo-client
 
 expose 8088
 
-ENTRYPOINT ["java","-jar","demo-client-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -jar demo-client-0.0.1-SNAPSHOT.jar"]
