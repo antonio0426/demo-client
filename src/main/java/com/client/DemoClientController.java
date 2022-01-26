@@ -20,7 +20,7 @@ public class DemoClientController {
 	@GetMapping("/users")
 	public Iterable<DemoDbUser> getAllusers() {
 
-		String baseUrl = "http://demo-client-microservice/demodb/users";
+		String baseUrl = "http://demo-client-service/demodb/users";
 
 		RestTemplate restTemplate = new RestTemplate();
 		Iterable<DemoDbUser> response = null;
