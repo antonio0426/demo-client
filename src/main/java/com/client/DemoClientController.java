@@ -28,10 +28,15 @@ public class DemoClientController {
 
 		try {
 			InetAddress address = InetAddress.getByName("demo-db-service");
-            boolean reachable = address.isReachable(10000);
-			
-            log.info("Service is " + reachable + " with ping");
-			
+			boolean reachable = address.isReachable(10000);
+
+			log.info("Service is " + reachable + " with name");
+
+			address = InetAddress.getByName("10.100.121.167");
+			reachable = address.isReachable(10000);
+
+			log.info("Service is " + reachable + " with ip");
+
 			pingSocket = new Socket("demo-db-service", 9002);
 			out = new PrintWriter(pingSocket.getOutputStream(), true);
 			in = new BufferedReader(new InputStreamReader(pingSocket.getInputStream()));
@@ -43,8 +48,6 @@ public class DemoClientController {
 		} catch (IOException e) {
 			log.error(e.getMessage(), e);
 		}
-
-		
 
 //
 //		String baseUrl = "http://demo-db-service/demodb/users";
