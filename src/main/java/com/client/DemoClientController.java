@@ -30,20 +30,21 @@ public class DemoClientController {
 			InetAddress address = InetAddress.getByName("demo-db-service");
             boolean reachable = address.isReachable(10000);
 			
-            log.info("Service is " + reachable);
+            log.info("Service is " + reachable + " with ping");
 			
 			pingSocket = new Socket("demo-db-service", 9002);
 			out = new PrintWriter(pingSocket.getOutputStream(), true);
 			in = new BufferedReader(new InputStreamReader(pingSocket.getInputStream()));
+			out.println("telnet");
+			log.info(in.readLine());
+			out.close();
+			in.close();
+			pingSocket.close();
 		} catch (IOException e) {
 			log.error(e.getMessage(), e);
 		}
 
-		out.println("ping");
-		log.info(in.readLine());
-		out.close();
-		in.close();
-		pingSocket.close();
+		
 
 //
 //		String baseUrl = "http://demo-db-service/demodb/users";
