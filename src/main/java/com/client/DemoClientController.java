@@ -57,7 +57,7 @@ public class DemoClientController {
 //		}
 //		log.info("end getAllUsers");
 
-		return response;
+		return null;
 	}
 
 }
