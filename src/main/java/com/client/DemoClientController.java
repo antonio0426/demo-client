@@ -1,12 +1,16 @@
 package com.client;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.net.Socket;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @RestController
 public class DemoClientController {
@@ -18,16 +22,40 @@ public class DemoClientController {
 
 		log.info("start getAllUsers");
 
-		String baseUrl = "http://demo-db-service/demodb/users";
-		RestTemplate restTemplate = new RestTemplate();
-		Iterable<DemoDbUser> response = null;
+		Socket pingSocket = null;
+		PrintWriter out = null;
+		BufferedReader in = null;
 
 		try {
-			response = restTemplate.getForObject(baseUrl, Iterable.class);
-		} catch (Exception e) {
+			InetAddress address = InetAddress.getByName("demo-db-service");
+            boolean reachable = address.isReachable(10000);
+			
+            log.info("Service is " + reachable);
+			
+			pingSocket = new Socket("demo-db-service", 9002);
+			out = new PrintWriter(pingSocket.getOutputStream(), true);
+			in = new BufferedReader(new InputStreamReader(pingSocket.getInputStream()));
+		} catch (IOException e) {
 			log.error(e.getMessage(), e);
 		}
-		log.info("end getAllUsers");
+
+		out.println("ping");
+		log.info(in.readLine());
+		out.close();
+		in.close();
+		pingSocket.close();
+
+//
+//		String baseUrl = "http://demo-db-service/demodb/users";
+//		RestTemplate restTemplate = new RestTemplate();
+//		Iterable<DemoDbUser> response = null;
+//
+//		try {
+//			response = restTemplate.getForObject(baseUrl, Iterable.class);
+//		} catch (Exception e) {
+//			log.error(e.getMessage(), e);
+//		}
+//		log.info("end getAllUsers");
 
 		return response;
 	}
