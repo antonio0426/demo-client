@@ -31,7 +31,7 @@ public class DemoClientController {
 
 		log.info("Base url " + baseUrl);
 
-		baseUrl += "/demodb/users";
+		baseUrl += "/users";
 
 		log.info("Url " + baseUrl);
 		RestTemplate restTemplate = new RestTemplate();
